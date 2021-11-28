@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var postRoutes = require('./routes/posts');
-var mongoose = require('mongoose');
 
 var app = express();
 
@@ -21,7 +19,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/posts', postRoutes);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -67,9 +64,5 @@ app.post('/', (req, res, next) => {
       createdPost: post   //here we will pass the created post to the response.
   });
 });
-
-//to use mongoose you will need to config. your local mongo db, 
-//I have done mine with robo3t you can find it https://robomongo.org/
-mongoose.connect('mongodb://localhost:27017/your_local_db_name', {useNewUrlParser: true});
 
 module.exports = app;
